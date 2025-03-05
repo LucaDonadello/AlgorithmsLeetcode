@@ -264,3 +264,34 @@ def isAnagram(self, s: str, t: str) -> bool:
             anagramT[i] += 1
     
     return anagramT == anagramS
+
+
+# 49. Group Anagrams
+'''
+Given an array of strings strs, group the together. You can return the answer in any order.
+'''
+def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+    '''
+    The idea I had is to use a dictionary to store the sorted string as the key and the original string as the value.
+    The algorithm iterates through the strings and sorts the string. Then we check if the sorted string is in the dictionary.
+    If it is not, we add the sorted string as the key and the original string as the value. If it is, we append the original string to the value.
+    Finally we return the values of the dictionary.
+    Time complexity is O(n*mlogm) where n is the number of strings and m is the length of the string.
+    Space complexity is O(n) where n is the number of strings.
+    '''
+    
+    cache = {}
+    res = []
+
+    for i in strs:
+        temp = i
+        i = str(sorted(i))
+        if i not in cache:
+            cache[i] = [temp]
+        else:
+            cache[i].append(temp)
+    
+    for i in cache.values():
+        res.append(i)
+    
+    return res
