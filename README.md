@@ -7,10 +7,11 @@ Welcome to my LeetCode Journey! 🚀 This repository serves as a collection of m
 This repository contains a single file with all my implemented solutions to LeetCode problems. My goal is to enhance my problem-solving abilities and deepen my understanding of algorithms and data structures.
 
 ## File Structure
-
+```
 📂 Algorithm Leetcode
 │── 📜 leetcode.py
 │── 📜 README.md
+```
 
 All functions are written in a single file, categorized with comments for readability.
 
