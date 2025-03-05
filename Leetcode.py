@@ -295,3 +295,37 @@ def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
         res.append(i)
     
     return res
+
+# 20. Valid Parentheses
+'''
+Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+An input string is valid if:
+1) Open brackets must be closed by the same type of brackets.
+2) Open brackets must be closed in the correct order.
+3) Every close bracket has a corresponding open bracket of the same type.
+'''
+
+def isValid(self, s: str) -> bool:
+    '''
+    This algorithm was inspired by the stack data structure. The idea is to use a stack to store the open brackets.
+    The algorithm iterates through the string in the input and checks if the character is an open bracket. If it is, we add the character to the stack.
+    If the character is a close bracket, we check if the stack is empty. If it is, we return False. If it is not, we pop the last element from the stack and check if the open bracket is the same as the close bracket.
+    If it is not, we return False. Finally we check if the stack is empty. If it is, we return True. If it is not, we return False.
+    Time complexity is O(n) where n is the length of the string.
+    Space complexity is O(n) where n is the length of the string.
+    '''
+
+    stack = []
+
+    for i in s:
+        if i in ["(", "[", "{"]:    # Remember this is constant time since it is a limited set of characters (3)
+            stack.append(i)
+        elif len(stack) != 0:  
+            check = stack.pop()
+            if check == "(" and i != ")" or check == "[" and i != "]" or check == "{" and i != "}":
+                return False
+        else:
+            return False
+    
+    return len(stack) == 0
