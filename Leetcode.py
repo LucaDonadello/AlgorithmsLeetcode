@@ -296,6 +296,8 @@ def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
     
     return res
 
+# Stack and Queue problems
+
 # 20. Valid Parentheses
 '''
 Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
@@ -329,3 +331,32 @@ def isValid(self, s: str) -> bool:
             return False
     
     return len(stack) == 0
+
+# 739. Daily Temperatures
+
+'''
+Given an array of integers temperatures represents the daily temperatures, return an array answer such that answer[i]
+is the number of days you have to wait after the ith day to get a warmer temperature.
+If there is no future day for which this is possible, keep answer[i] == 0 instead.
+'''
+
+def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+    '''
+    I did not code the naive way to calculate this since it is not optimal and it takes O(n^2) time complexity.
+    This instead is the optimal solution which uses a stack to store the indices of the temperatures.
+    The algorithm iterates through the array in reverse and checks if the temperature is greater than the temperature at the top of the stack.
+    If it is, we pop the last element from the stack and calculate the difference between the current index and the index at the top of the stack.
+    If it is not, we add the index to the stack. Finally we return the result.
+    Time complexity is O(n) where n is the length of the temperatures.
+    Space complexity is O(n) where n is the length of the temperatures
+    '''
+    stack = []
+    res = [0] * len(temperatures)
+
+    for i in range(len(temperatures) - 1, -1, -1):
+        while stack and temperatures[i] >= temperatures[stack[-1]]:
+            stack.pop()
+        if stack:
+            res[i] = stack[-1] - i
+        stack.append(i)
+    return res
