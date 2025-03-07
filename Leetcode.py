@@ -360,3 +360,51 @@ def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
             res[i] = stack[-1] - i
         stack.append(i)
     return res
+
+# 155. Min Stack
+
+'''
+Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
+
+Implement the MinStack class:
+
+MinStack() initializes the stack object.
+void push(int val) pushes the element val onto the stack.
+void pop() removes the element on the top of the stack.
+int top() gets the top element of the stack.
+int getMin() retrieves the minimum element in the stack.
+
+You must implement a solution with O(1) time complexity for each function.
+'''
+
+class MinStack:
+
+    '''
+    The idea of this algorithm is to use a stack to store the minimum value of the stack.
+    The algorithm uses a tuple to store the value and the minimum value of the stack. The algorithm initializes the stack as an empty list.
+    The algorithm pushes the value and the minimum value to the stack. If the value is less than the minimum value, we update the minimum value.
+    The algorithm pops the last element from the stack. The algorithm returns the top element of the stack. The algorithm returns the minimum value of the stack.
+    The time complexity is O(1) for each function.
+    The space complexity is O(n) where n is the number of elements in the stack.
+    '''
+
+    def __init__(self):
+        self.minStack = []
+
+    def push(self, val: int) -> None:
+        if not self.minStack:
+            self.minStack.append((val, val))
+        else:
+            if self.minStack[-1][1] > val:
+                self.minStack.append((val, val))
+            else:
+                self.minStack.append((val, self.minStack[-1][1]))
+
+    def pop(self) -> None:
+        self.minStack = self.minStack[:len(self.minStack)-1]
+
+    def top(self) -> int:
+        return self.minStack[-1][0]
+
+    def getMin(self) -> int:
+        return self.minStack[-1][1]
