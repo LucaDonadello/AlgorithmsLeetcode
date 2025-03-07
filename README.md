@@ -34,13 +34,13 @@ Code Implementation (With clear comments for understanding)
 ## Progress Tracking
 
 I track my progress and maintain consistency by solving problems regularly. Here’s my current progress:
-✅ Total Problems Solved: 9
+✅ Total Problems Solved: 10
 
 ## How to Use
 
 Feel free to browse through the solutions, suggest optimizations, or contribute. If you find any mistakes or have alternative approaches, feel free to open an issue or a pull request!
 
-Let's Connect
+## Let's Connect
 
 If you are also on a LeetCode journey, let's connect!
 
