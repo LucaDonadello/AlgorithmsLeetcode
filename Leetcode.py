@@ -408,3 +408,66 @@ class MinStack:
 
     def getMin(self) -> int:
         return self.minStack[-1][1]
+    
+# 496. Next Greater Element I
+
+'''
+The next greater element of some element x in an array is the first greater element that is to the right of x in the same array.
+You are given two distinct 0-indexed integer arrays nums1 and nums2, where nums1 is a subset of nums2.
+For each 0 <= i < nums1.length, find the index j such that nums1[i] == nums2[j] and determine the next greater element of nums2[j] in nums2.
+If there is no next greater element, then the answer for this query is -1.
+Return an array ans of length nums1.length such that ans[i] is the next greater element as described above.'
+'''
+
+def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+    # I would avoid the naive since it is just a double loop which will run in O(n^2)
+    '''
+    This algorithm uses a stack to store the indices of the numbers in the array. The algorithm iterates through the array in reverse and checks if the number is greater than the number at the top of the stack.
+    If it is, we pop the last element from the stack and check if the number is greater than the number at the top of the stack. If it is, we pop the last element from the stack.
+    If it is not, we append the index to the stack. Finally we return the result.
+    Time complexity is O(n) where n is the length of the array.
+    Space complexity is O(n) where n is the length of the array
+    -- This is very similar to the daily temperatures problem
+    '''
+    # stack = []
+    # minArr = [-1] * len(nums2)
+    # res = []
+
+    # for i in range(len(nums2)-1,-1,-1):
+    #     while stack:
+    #         if nums2[stack[-1]] < nums2[i]:
+    #             stack.pop()
+    #         else:
+    #             minArr[i] = nums2[stack[-1]]
+    #             break
+    #     stack.append(i)
+    
+    # for i in nums1:
+    #     res.append(minArr[nums2.index(i)])
+    
+    # return res
+
+    '''
+    This algorithm is the same as the previous one but it uses a dictionary to store the indices of the numbers in the array.
+    The algorithm iterates through the array in reverse and checks if the number is greater than the number at the top of the stack.
+    If it is, we pop the last element from the stack and check if the number is greater than the number at the top of the stack. If it is, we pop the last element from the stack.
+    If it is not, we append the index to the stack. Finally we return the result.
+    Time complexity is O(n) where n is the length of the array.
+    Space complexity is O(n) where n is the length of the array
+    '''
+    
+    stack = []
+    minMap = {}
+    res = []
+
+    for i in range(len(nums2)-1,-1,-1):
+        while stack and nums2[stack[-1]] < nums2[i]:
+            stack.pop()
+
+        minMap[nums2[i]] = nums2[stack[-1]] if stack else -1
+        stack.append(i)
+    
+    for i in nums1:
+        res.append(minMap[i])
+    
+    return res
