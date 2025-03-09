@@ -1,4 +1,5 @@
 from ast import List
+from collections import deque
 
 ## Leetcode Problems
 
@@ -471,3 +472,70 @@ def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
         res.append(minMap[i])
     
     return res
+
+# 239. Sliding Window Maximum
+
+'''
+You are given an array of integers nums, there is a sliding window of size k which is moving from the very left of the array to the very right. You can only see the k numbers in the window.
+Each time the sliding window moves right by one position.
+Return the max sliding window.
+'''
+
+def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+    '''
+    The naive solution is to have a nested loop with a pointer at the start of the array.
+    The outer loop will iterate through the array and the inner loop will iterate through the window.
+    The algorithm will calculate the maximum of the window and append it to the result. This is not the optimal solution since it takes O(n^2) time complexity.
+    '''
+
+    '''
+    This is the optimal implementation of the algorithm. The idea is to use a deque to store the indices of the numbers in the array.
+    The algorithm iterates through the array and checks if the number is greater than the number at the top of the deque.
+    If it is, we pop the last element from the deque. Then we append the index to the deque. If the index is greater than k, we check if the number at the top of the deque is the number at the index k.
+    If it is, we pop the last element from the deque. Finally we append the number at the top of the deque to the result.
+    Time complexity is O(n) where n is the length of the array.
+    Space complexity is O(n) where n is the length of the array.
+    '''
+
+    # This is how to declare the queue
+    queue = deque()
+    res = []
+
+    # I iterate through the array using enumerate to get the index and the number in the array
+    for i, num in enumerate(nums):
+        # I check if the number is greater than the number at the top of the queue
+        while queue and queue[-1] < num:
+            # If it is, I pop the last element from the queue
+            queue.pop()
+
+        # Append the value to the queue
+        queue.append(num)
+
+        # check if the sliding window is greater than k 
+        if i >= k and nums[i-k] == queue[0]:
+            queue.popleft()
+        
+        # Append the value at the top of the queue to the result
+        if i >= k - 1:
+            res.append(queue[0])
+    
+    return res
+
+    '''
+    Example of how the algorithm works
+    nums = [1,3,-1,-3,5,3,6,7]
+    k = 3
+
+    queue = [1]
+    queue = [3, 1]
+    queue = [3, 1, -1]
+    res = [3]
+    queue = [3, 1, -1, -3] --> Since - 3 is not greater than the last element
+    res = [3, 3]
+    queue = [5, 3, 1, -1, -3]
+    ...
+    This creates a decreasing queue where the first element is the maximum of the window
+    If the first element is out of the window, we remove it from the queue
+    '''
+    
+
