@@ -1,5 +1,12 @@
 from ast import List
 from collections import deque
+from typing import Optional
+
+# Definition for singly-linked list.
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
 
 ## Leetcode Problems
 
@@ -518,24 +525,69 @@ def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
         # Append the value at the top of the queue to the result
         if i >= k - 1:
             res.append(queue[0])
+        
+        '''
+        Example of how the algorithm works
+        nums = [1,3,-1,-3,5,3,6,7]
+        k = 3
+
+        queue = [1]
+        queue = [3, 1]
+        queue = [3, 1, -1]
+        res = [3]
+        queue = [3, 1, -1, -3] --> Since - 3 is not greater than the last element
+        res = [3, 3]
+        queue = [5, 3, 1, -1, -3]
+        ...
+        This creates a decreasing queue where the first element is the maximum of the window
+        If the first element is out of the window, we remove it from the queue
+        '''
     
     return res
 
-    '''
-    Example of how the algorithm works
-    nums = [1,3,-1,-3,5,3,6,7]
-    k = 3
-
-    queue = [1]
-    queue = [3, 1]
-    queue = [3, 1, -1]
-    res = [3]
-    queue = [3, 1, -1, -3] --> Since - 3 is not greater than the last element
-    res = [3, 3]
-    queue = [5, 3, 1, -1, -3]
-    ...
-    This creates a decreasing queue where the first element is the maximum of the window
-    If the first element is out of the window, we remove it from the queue
-    '''
+# Linked Lists problems
     
+# 206. Reverse Linked List
 
+'''
+Given the head of a singly linked list, reverse the list, and return the reversed list.
+'''
+def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        '''
+        The optimal solution is to use a recursive function to reverse the linked list.
+
+        The main idea is to return the newHead of the linked list. The algorithm checks if the head is None or the next element is None.
+        If it is, we return the head. Otherwise, we call the function recursively with the next element of the head.
+        Then we update the next element of the next element of the head to the head. Then we update the next element of the head to None.
+        Finally we return the newHead.
+
+        Time complexity is O(n) where n is the length of the linked list.
+        Space complexity is O(n) where n is the length of the linked list.
+
+        '''
+        if head == None or head.next == None:
+            return head
+        
+        newHead = self.reverseList(head.next)
+        head.next.next = head
+        head.next = None
+
+        '''
+
+        Illustration:
+        1 -> 2 -> 3 -> 4 -> 5 -> None
+        When you reach the end it will return the second last element.
+        This element can be used to reverse the linked list.
+        4.next = 5 and 4.next.next is the next element after the 5 which is None.
+        4.next = None so we remove the link between 4 and 5 in the other direction.
+        since are in the body of the recursive call and we done with the last call we now are going to deal with the previous call.
+        3.next.next = 4 and 3.next = None
+        then 
+        2.next.next = 3 and 2.next = None
+        then
+        1.next.next = 2 and 1.next = None
+        Then we return the newHead which is the last element of the linked list.
+        5 -> 4 -> 3 -> 2 -> 1 -> None
+
+        '''
+        return newHead
