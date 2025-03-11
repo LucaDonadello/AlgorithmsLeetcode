@@ -591,3 +591,36 @@ def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
 
         '''
         return newHead
+
+# 21. Merge Two Sorted Lists
+
+'''
+You are given the heads of two sorted linked lists list1 and list2.
+Merge the two lists into one sorted list. The list should be made by splicing together the nodes of the first two lists.
+Return the head of the merged linked list.
+'''
+
+def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+    '''
+    This algorithm is a recursive function to merge two sorted linked lists.
+    If the first list is None, we return the second list. If the second list is None, we return the first list.
+    If the value of the first list is greater than the value of the second list, we swap the lists.
+    Then we call the function recursively with the next element of the first list and the second list.
+    Finally we return the first list.
+    '''
+    if not list1 or not list2:
+        return list1 if list1 else list2
+
+    if list1.val > list2.val:
+        list2, list1 = list1, list2
+
+    list1.next = self.mergeTwoLists(list1.next, list2)
+
+    '''
+    The idea uses the following example:
+    list1 = 1 -> 2 -> 4 -> None
+    list2 = 1 -> 3 -> 4 -> None
+    '''
+
+    return list1
+
