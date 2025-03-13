@@ -624,3 +624,41 @@ def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) ->
 
     return list1
 
+# 141. Linked List Cycle
+
+'''
+Given head, the head of a linked list, determine if the linked list has a cycle in it.
+There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer.
+Internally, pos is used to denote the index of the node that tail's next pointer is connected to. Note that pos is not passed as a parameter.
+Return true if there is a cycle in the linked list. Otherwise, return false.
+'''
+
+def hasCycle(self, head: Optional[ListNode]) -> bool:
+    # the naive interpretation is to use an hash table and record every entry. If the new is already in means it is a cycle
+
+    '''
+    This algorithm uses the fast and slow pointer to check if the linked list has a cycle.
+    The algorithm initializes the fast and slow pointers as the head of the linked list.
+    The algorithm iterates through the linked list and checks if the fast pointer is None or the next element of the fast pointer is None.
+    If it is, we return False. If it is not, we update the fast pointer to the next element of the next element of the fast pointer.
+    Then we update the slow pointer to the next element of the slow pointer.
+    If the fast pointer is equal to the slow pointer, we return True. If it is not, we return False.
+    Time complexity is O(n) where n is the length of the linked list.
+    Space complexity is O(1).
+    '''
+    fast = head
+    slow = head
+
+    while fast and fast.next:
+        '''
+        The update of the fast pointer is twice the speed of the slow pointer.
+        This is particularly crucial because otherwise the cycle will never be detected.
+        It has to be twice the speed of the slow pointer to avoid the slow pointer to catch up with the fast pointer.
+        '''
+        fast = fast.next.next
+        slow = slow.next
+
+        if fast == slow:
+            return True
+    
+    return False
