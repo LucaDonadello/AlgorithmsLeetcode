@@ -698,3 +698,30 @@ def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optio
         node = ListNode(currSum % 10)
         node.next = addTwoNumbersHelper(l1,l2,int(currSum / 10))
         return node
+
+# 19. Remove Nth Node From End of List
+
+'''
+Given the head of a linked list, remove the nth node from the end of the list and return its head.
+'''
+def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+    '''
+    The idea of this algorithm is to use a recursive function to remove the nth node from the end of the linked list.
+    The algorithm uses a helper function to remove the nth node from the end of the linked list. 
+    The algorithm initializes the head of the linked list as the next element of the head.
+    The algorithm iterates through the linked list and checks if the index is equal to n. If it is, we update the next element of the head to the next element of the next element of the head.
+    Finally we return the head of the linked list.
+    Time complexity is O(n) where n is the length of the linked list.
+    Space complexity is O(n). --> Since we are using the stack to store the values.
+    '''
+    def removeHelper(node, n):
+        if not node:
+            return 0
+
+        i = removeHelper(node.next,n)
+
+        if i == n:
+            node.next = node.next.next
+        return i + 1
+        
+    return head.next if removeHelper(head,n) == n else head
