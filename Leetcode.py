@@ -662,3 +662,96 @@ def hasCycle(self, head: Optional[ListNode]) -> bool:
             return True
     
     return False
+
+# 2. Add Two Numbers
+
+'''
+You are given two non-empty linked lists representing two non-negative integers.
+The digits are stored in reverse order, and each of their nodes contains a single digit.
+Add the two numbers and return the sum as a linked list.
+You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+'''
+def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+    '''
+    The recursion is the first idea that came to my mind. This work by adding the two numbers and passing the carry to the next element.
+    The algorithm checks if the two linked lists are None and the carry is 0. If it is, we return None.
+    If it is not, we calculate the sum of the two numbers and the carry. Then we update the carry to the sum divided by 10.
+    Then we create a new node with the value of the sum modulo 10. Then we update the next element of the new node to the recursive call of the next element of the first linked list and the next element of the second linked list.
+    Finally we return the new node.
+    Time complexity is O(n) where n is the length of the linked list.
+    Space complexity is O(n) where n is the length of the linked list. --> Since we are using the stack to store the values.
+    '''
+    def addTwoNumbersHelper(l1,l2,carry):
+        if not l1 and not l2 and carry == 0:
+            return
+
+        currSum = carry
+
+        if l1:
+            currSum += l1.val
+            l1 = l1.next
+        
+        if l2:
+            currSum += l2.val
+            l2 = l2.next
+        
+        node = ListNode(currSum % 10)
+        node.next = addTwoNumbersHelper(l1,l2,int(currSum / 10))
+        return node
+
+    return addTwoNumbersHelper(l1,l2,0)
+
+# 234. Palindrome Linked List
+
+'''
+Given the head of a singly linked list, return true if it is a palindrome.
+'''
+
+def isPalindrome(self, head: Optional[ListNode]) -> bool:
+
+
+        # This of course is not the optimal solution to the problem which should involve recursion.
+        # array = []
+        # end = -1
+        # start = 0
+
+        # while head:
+        #     array.append(head.val)
+        #     head = head.next
+        #     end += 1
+
+        # while start < end:
+        #     if array[start] != array[end]:
+        #         return False
+        #     start += 1
+        #     end -= 1
+        
+        # return True
+
+        # Try to use recursion
+
+        '''
+        This algorithm uses a recursive function to check if the linked list is a palindrome.
+        The algorithm uses a global variable to store the head of the linked list.
+        The algorithm initializes the head of the linked list as the current head.
+        The algorithm checks if the head is None. If it is, we return True.
+        If it is not, we call the function recursively with the next element of the head.
+        Then we check if the value of the head is equal to the value of the current head.
+        If it is not, we return False. If it is, we update the current head to the next element of the current head.
+        Finally we return True.
+        Time complexity is O(n) where n is the length of the linked list.
+        Space complexity is O(1)
+        '''
+
+        self.curHead = head
+
+        def pal(head):
+            if not head:
+                return True
+            
+            ans = pal(head.next) and head.val == self.curHead.val
+            self.curHead = self.curHead.next
+            
+            return ans
+
+        return pal(head)
