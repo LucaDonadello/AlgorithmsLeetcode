@@ -545,6 +545,45 @@ def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
     
     return res
 
+# 5. Longest Palindromic Substring
+
+'''
+Given a string s, return the longest in s.
+'''
+
+def longestPalindrome(self, s: str) -> str:
+    '''
+    The idea of this algorithm is to use the two pointers to check if the string is a palindrome.
+    The algorithm iterates through the string and checks if the string is a palindrome with the current index as the center.
+    The algorithm iterates through the string and checks if the string is a palindrome with the current index and the next index as the center.
+    Time complexity is O(n^2) where n is the length of the string.
+    Space complexity is O(1).
+    '''
+    res = ""
+    resLenght = 0
+
+    for i in range(len(s)):
+        left, right = i, i
+        while left >= 0 and right < len(s) and s[left] == s[right]:
+            curLenght = right - left + 1    # This is the current length of the palindrome
+            if curLenght >= resLenght:      # If the current length is greater than the result length, we update the result
+                res = s[left:right+1]
+                resLenght = curLenght
+            right += 1                      # We increment the right pointer
+            left -= 1                       # We decrement the left pointer
+
+        # Since the palindrome can be even or odd, we need to check both cases.
+        left, right = i, i+1
+        while left >= 0 and right < len(s) and s[left] == s[right]:
+            curLenght = right - left + 1
+            if curLenght >= resLenght:
+                res = s[left:right+1]
+                resLenght = curLenght
+            right += 1
+            left -= 1
+    
+    return res
+
 # Linked Lists problems
     
 # 206. Reverse Linked List
