@@ -584,6 +584,51 @@ def longestPalindrome(self, s: str) -> str:
     
     return res
 
+#344. Reverse String
+
+'''
+Write a function that reverses a string. The input string is given as an array of characters s.
+You must do this by modifying the input array in-place with O(1) extra memory.
+'''
+
+def reverseString(self, s: List[str]) -> None:
+    """
+    Do not return anything, modify s in-place instead.
+    """
+
+    '''
+    The idea of this algorithm is to use two pointers to reverse the string.
+    The algorithm uses a copy of the string to store the original string. The algorithm iterates through the string and updates the current index with the value of the copy.
+    Time complexity is O(n) where n is the length of the string.
+    Space complexity is O(n) where n is the length of the string.
+    '''
+
+    # Since this is not allowed think differently 
+    # temp = s[:]
+    # counter = 0
+
+    # for i in range(len(s)-1,-1,-1):
+    #     s[i] = temp[counter]
+    #     counter += 1
+
+    '''
+    The optimal solution is to use two pointers to reverse the string.
+    The algorithm initializes the left pointer as 0 and the right pointer as the length of the string - 1.
+    The algorithm iterates through the string and swaps the values of the left and right pointers.
+    Time complexity is O(n) where n is the length of the string.
+    Space complexity is O(1).
+    '''
+
+    left = 0
+    right = len(s)-1
+
+    while left < right:
+        temp = s[right]
+        s[right] = s[left]
+        s[left] = temp
+        left += 1
+        right -= 1
+
 # Linked Lists problems
     
 # 206. Reverse Linked List
