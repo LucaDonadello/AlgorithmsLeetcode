@@ -629,6 +629,60 @@ def reverseString(self, s: List[str]) -> None:
         left += 1
         right -= 1
 
+# 125. Valid Palindrome
+
+def isPalindrome(self, s: str) -> bool:
+    # this is just an implementation of the problem using recursion
+    '''
+    def isPalindrome(self, s: str) -> bool:
+    newStr = ""
+    for i in range(len(s)):
+        if s[i].isalnum():
+            newStr+=s[i]
+
+    newStr = newStr.lower()
+
+    def isPal(s):
+        if len(s) == 1 or len(s) == 0:
+            return True
+        
+        if s[0] == s[len(s)-1]:
+            return isPal(s[1:len(s)-1])
+        else:
+            return False
+    
+    return isPal(newStr)
+    '''
+
+    '''
+    This is the optimal solution. The idea is to use two pointers to check if the string is a palindrome.
+    The algorithm initializes the left pointer as 0 and the right pointer as the length of the string - 1.
+    The algorithm iterates through the string and checks if the character is an alphanumeric character.
+    If it is, we update the left and right pointers. If it is not, we check if the characters at the left and right pointers are equal.
+    If they are not, we return False. If they are, we update the left and right pointers.
+    Time complexity is O(n) where n is the length of the string.
+    Space complexity is O(1).
+    '''
+
+    newStr = ""
+    for i in range(len(s)):
+        if s[i].isalnum():
+            newStr+=s[i]
+
+    newStr = newStr.lower()
+
+    l, r = 0, len(newStr)-1
+
+    while l < r:
+        if newStr[l] != newStr[r]:
+            return False
+        l += 1
+        r -= 1
+    
+    return True
+
+
+
 # Linked Lists problems
     
 # 206. Reverse Linked List
