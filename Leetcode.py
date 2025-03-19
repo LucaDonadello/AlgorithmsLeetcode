@@ -681,7 +681,48 @@ def isPalindrome(self, s: str) -> bool:
     
     return True
 
+# 34. Find First and Last Position of Element in Sorted Array
 
+'''
+Given an array of integers nums sorted in non-decreasing order, find the starting and ending position of a given target value.
+If target is not found in the array, return [-1, -1].
+You must write an algorithm with O(log n) runtime complexity.
+'''
+
+def searchRange(self, nums: List[int], target: int) -> List[int]:
+    '''
+    This is the optimal solution. The idea is to use binary search to find the first and last position of the target.
+    The algorithm initializes the result as [-1, -1]. The algorithm initializes the start and end pointers as 0 and the length of the array - 1.
+    The algorithm iterates through the array and checks if the middle element is equal to the target. If it is, we update the result.
+    If the middle element is greater than the target, we update the end pointer. If the middle element is less than the target, we update the start pointer.
+    Time complexity is O(log n) where n is the length of the array.
+    Space complexity is O(1).
+    '''
+    res = [-1, -1]
+    start, end = 0, len(nums) - 1
+
+    while start <= end:
+        middle = (start + end) // 2
+
+        if nums[middle] == target:
+
+            left, right = middle, middle
+            
+            while left > 0 and nums[left - 1] == target:
+                left -= 1
+            
+            while right < len(nums) - 1 and nums[right + 1] == target:
+                right += 1
+            
+            res[0], res[1] = left, right
+            return res
+        
+        if nums[middle] > target:
+            end = middle - 1
+        else:
+            start = middle + 1
+
+    return res
 
 # Linked Lists problems
     
