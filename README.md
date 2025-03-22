@@ -8,9 +8,16 @@ This repository contains a single file with all my implemented solutions to Leet
 
 ## File Structure
 ```
-📂 Algorithm Leetcode
-│── 📜 leetcode.py
-│── 📜 README.md
+📂 Algorithm_Leetcode
+│── 📂 ArrayStrings
+│   │── 📜 stringArrays.py
+│── 📂 LinkedLists
+│   │── 📜 linkedlists.py
+│── 📂 StackQueues
+│   │── 📜 stackQueues.py
+│── 📂 Tests
+│   │── 📜 test.py
+│──📜 README.md
 ```
 
 All functions are written in a single file, categorized with comments for readability.
