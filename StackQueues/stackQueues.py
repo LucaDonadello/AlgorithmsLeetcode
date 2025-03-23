@@ -274,3 +274,48 @@ class MyQueue:
             return False
         else:
             return True
+
+# 150. Evaluate Reverse Polish Notation
+'''
+You are given an array of strings tokens that represents an arithmetic expression in a Reverse Polish Notation.
+Evaluate the expression. Return an integer that represents the value of the expression.
+Note that:
+The valid operators are '+', '-', '*', and '/'.
+Each operand may be an integer or another expression.
+The division between two integers always truncates toward zero.
+There will not be any division by zero.
+The input represents a valid arithmetic expression in a reverse polish notation.
+The answer and all the intermediate calculations can be represented in a 32-bit integer.
+
+'''
+
+def evalRPN(self, tokens: List[str]) -> int:
+    '''
+    The idea of this algorithm is to use a stack to store the numbers in the array. The algorithm iterates through the array and checks if the element is a number.
+    If it is, we append the number to the stack. If it is not, we pop the last two elements from the stack and perform the operation.
+    Finally we return the result.
+    Time complexity is O(n) where n is the length of the array.
+    Space complexity is O(n) where n is the length of the array.
+
+    This can be further improved by using a dictionary to store the operations. Or just if statements.
+    '''
+
+    stack = []
+    cache = ["+", "-", "/", "*"]
+
+    for i in tokens:
+        if i not in cache:
+            stack.append(int(i))
+        else:
+            num1 = stack.pop()
+            num2 = stack.pop()
+            if i == "+":
+                stack.append(num1+num2)
+            elif i == "-":
+                stack.append(num2-num1)
+            elif i == "*":
+                stack.append(num1*num2)
+            else:
+                stack.append(int(num2/num1))
+    
+    return stack[-1]
