@@ -516,3 +516,26 @@ def reverseWords(self, s: str) -> str:
     
     
     return res
+
+# 28. Find the Index of the First Occurrence in a String
+
+'''
+Given two strings needle and haystack, return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+'''
+
+def strStr(self, haystack: str, needle: str) -> int:
+    '''
+    The idea of this algorithm is to use a sliding window to check if the needle is in the haystack.
+    The algorithm iterates through the haystack and checks if the substring is equal to the needle.
+    If it is, we return the index. If it is not, we return -1.
+    Time complexity is O(n*m) where n is the length of the haystack and m is the length of the needle.
+    Space complexity is O(1).
+    '''
+    if len(haystack) < len(needle):
+        return -1
+    
+    for i in range(len(haystack)):
+        if haystack[i:i+len(needle)] == needle:
+            return i
+    
+    return -1
