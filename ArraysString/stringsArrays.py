@@ -474,3 +474,45 @@ def searchRange(self, nums: List[int], target: int) -> List[int]:
             start = middle + 1
 
     return res
+
+# 151 Reverse Words in a String
+
+'''
+Given an input string s, reverse the order of the words.
+A word is defined as a sequence of non-space characters. The words in s will be separated by at least one space.
+Return a string of the words in reverse order concatenated by a single space.
+Note that s may contain leading or trailing spaces or multiple spaces between two words. 
+The returned string should only have a single space separating the words. Do not include any extra spaces.
+'''
+
+def reverseWords(self, s: str) -> str:
+    '''
+    The idea of this algorithm is to split the string into words and reverse the order of the words.
+    The algorithm initializes a list to store the words and a string to store the result.
+    The algorithm iterates through the string and checks if the character is a space. If it is, we add the word to the list.
+    If it is not, we update the word. Finally we reverse the list and return the result.
+    Time complexity is O(n) where n is the length of the string.
+    Space complexity is O(n) where n is the length of the string.
+    '''
+    lst = []
+    res = ""
+    tmp = ""
+
+    for i in s:          
+        if i == " ":
+            if tmp != " " and tmp != "":
+                lst.append(tmp)
+            tmp = ""
+        else:
+            tmp += i
+    
+    if tmp != " " and tmp != "":
+        lst.append(tmp)
+
+    for i in range(len(lst)-1,-1,-1):
+        res += lst[i]
+        if i != 0:
+            res += " "
+    
+    
+    return res
